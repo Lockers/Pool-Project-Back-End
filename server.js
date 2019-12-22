@@ -1,5 +1,3 @@
-import {seedPlayers} from './seed'
-
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
@@ -25,7 +23,6 @@ mongoose.connect(uri, {
 
 const connection = mongoose.connection;
 connection.once('open', () => {
-    seedPlayers()
     console.log("DB CONNECTED FUCKBAG")
 })
 

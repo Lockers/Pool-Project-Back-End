@@ -8,7 +8,6 @@ router.route('/').get((req, res) => {
 });
 
 router.route('/').post((req, res) => {
-    console.log(req.body)
     const newChallenge = new Challenges(req.body);
 
     newChallenge.save()

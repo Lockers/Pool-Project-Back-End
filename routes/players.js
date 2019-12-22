@@ -8,11 +8,10 @@ router.route('/').get((req, res) => {
 });
 
 router.route('/').post((req, res) => {
-    console.log(req.body)
-    const newPlayer = new Player(req.body);
-
-    newPlayer.save()
-        .then(() => res.json('Player Added'))
+    const newPlayer = new Player(req.body)
+    Player.save(newPlayer)
+        
+    .then(() => res.json('Player Added'))
     .catch(err => res.status(400).json('Error: ' + err))
 })
 
