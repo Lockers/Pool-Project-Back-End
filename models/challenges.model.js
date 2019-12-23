@@ -8,6 +8,7 @@ const challengesSchema = new Schema({
     venue: { type: String, required: true },
     ruleset: { type: String, required: true },
     pot: { type: Number, required: true },
+    // date: { type: Date, required: false, default: Date.now()}
 });
 
 const Challenges = mongoose.model('Challenges', challengesSchema);
