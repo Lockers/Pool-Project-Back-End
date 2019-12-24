@@ -28,7 +28,7 @@ router.route('/').post((req, res) => {
 });
 
 router.route('/:id').put((req, res) => {
-    Player.findByIdAndUpdate({ _id: req.params.id }, req.body)
+    Player.findOneAndUpdate({ leaguePosition: req.params.id }, req.body)
         .then(() => res.json('Player Updated'))
         .catch(err => res.status(400).json('Error: ' + err))
 });
