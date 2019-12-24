@@ -1,14 +1,14 @@
 const router = require('express').Router();
 let Player = require('../models/players.model');
 
-router.route('/').get((req, res) => {
-    Player.find()
-        .then(player => res.json(player))
-        .catch(err => res.status(400).json('Error: ' + err));
-});
+// router.route('/individual/:id').get((req, res) => {
+//     Player.find()
+//         .then(player => res.json(player))
+//         .catch(err => res.status(400).json('Error: ' + err));
+// });
 
 router.route('/:id').get((req, res) => {
-    Player.find({ leaguePosition: req.params.id })
+    Player.findById(req.params.id)
         .then(player => res.json(player))
         .catch(err => res.status(400).json('Error: ' + err));
 });

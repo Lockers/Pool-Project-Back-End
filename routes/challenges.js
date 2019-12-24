@@ -7,6 +7,19 @@ router.route('/').get((req, res) => {
         .catch(err => res.status(400).json('Error: ' + err));
 });
 
+router.route('/:id').get((req, res) => {
+    Challenges.findById(req.params.id)
+        .then(challenge => res.json(challenge))
+        .catch(err => res.status(400).json('Error: ' + err));
+});
+
+router.route('/:id').delete((req, res) => {
+    Challenges.findByIdAndDelete(req.params.id)
+        .then(challenge => res.json(challenge))
+        .catch(err => res.status(400).json('Error: ' + err));
+});
+
+
 router.route('/').post((req, res) => {
     const newChallenge = new Challenges(req.body);
 

@@ -28,10 +28,12 @@ connection.once('open', () => {
 
 const playersRouter = require('./routes/players');
 const challengesRouter = require('./routes/challenges');
+const resultsRouter = require('./routes/results');
 
 
 app.use('/players', playersRouter);
 app.use('/challenges', challengesRouter);
+app.use('/results', resultsRouter);
 
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);
