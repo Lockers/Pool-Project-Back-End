@@ -16,7 +16,7 @@ router.route('/:id').get((req, res) => {
 });
 
 router.route('/').post((req, res) => {
-    
+
     const newPlayer = new Player(req.body)
     console.log(newPlayer)
     Player.create(newPlayer)
@@ -41,12 +41,22 @@ router.route('/:id').put((req, res) => {
 });
 
 router.route('/:id').delete((req, res) => {
-    console.log(req.params.id)
-    Player.findByIdAndRemove(req.params.id)
-        .then(response => {
-        res.json(response)
+    Player.findById(req.params.id)
+        .then(res => {
+            return Player.updateMany(
+                { leaguePosition: { $gt: res.leaguePosition } },
+                { $inc: { leaguePosition: - 1 } })
         })
+        .catch(err => {
+            res.status(400).json('Error: ' + err)
+})
+        .then(res => {
+            console.log(req.params.id)
+            return Player.findByIdAndDelete(req.params.id)
+        })
+        .then(() => res.json('deleted'))
         .catch(err => res.status(400).json('Error: ' + err))
+        
 })
 
 module.exports = router;
