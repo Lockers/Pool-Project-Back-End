@@ -16,17 +16,17 @@ router.route('/:id').get((req, res) => {
 });
 
 router.route('/').post((req, res) => {
-
-    const newPlayer = new Player(req.body)
-    console.log(newPlayer)
-    Player.create(newPlayer)
-
+    Player.updateMany(
+        { leaguePosition: { $gte: req.body.leaguePosition } },
+        { $inc: { leaguePosition: + 1 } })
+        .then(res => {
+            return Player.create(req.body)
+        })
         .then(() => res.json('Player Added'))
         .catch(err => res.status(400).json('Error: ' + err))
 });
 
 router.route('/archive').post((req, res) => {
-    console.log(req.body)
     const newArchive = new Archive(req.body)
     Archive.create(newArchive)
 
@@ -47,16 +47,12 @@ router.route('/:id').delete((req, res) => {
                 { leaguePosition: { $gt: res.leaguePosition } },
                 { $inc: { leaguePosition: - 1 } })
         })
-        .catch(err => {
-            res.status(400).json('Error: ' + err)
-})
         .then(res => {
-            console.log(req.params.id)
-            return Player.findByIdAndDelete(req.params.id)
+            return Player.findByIdAndRemove(req.params.id)
         })
-        .then(() => res.json('deleted'))
+        .then(() => res.json('Player Deleted'))
         .catch(err => res.status(400).json('Error: ' + err))
-        
+
 })
 
 module.exports = router;
