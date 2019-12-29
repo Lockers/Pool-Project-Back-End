@@ -9,7 +9,7 @@ router.route('/').get((req, res) => {
 });
 
 router.route('/').post((req, res) => {
-    if (req.body.challengedScore > req.body.challengerScore) {
+    if (req.body.challengedScore < req.body.challengerScore) {
         Player.findOneAndUpdate({ name: req.body.challenger }, { $inc: { played: + 1, won: + 1, totalPrizeMoney: + req.body.pot } })
             .then(() => Player.findOneAndUpdate({ name: req.body.challenger }, { $push: { results: req.body } }))
             .catch(err => res.status(400).json('Error: ' + err))
@@ -22,7 +22,7 @@ router.route('/').post((req, res) => {
             .then(() => res.json('Result Added'))
             .catch(err => res.status(400).json('Error: ' + err))
     }
-    if (req.body.challengedScore < req.body.challengerScore) {
+    if (req.body.challengedScore > req.body.challengerScore) {
         Player.findOneAndUpdate({ name: req.body.challenged }, { $inc: { played: + 1, won: + 1, totalPrizeMoney: + req.body.pot } })
             .then(() => Player.findOneAndUpdate({ name: req.body.challenged }, { $push: { results: req.body } }))
             .catch(err => res.status(400).json('Error: ' + err))
