@@ -10,12 +10,12 @@ router.route('/').get((req, res) => {
 
 router.route('/').post((req, res) => {
     if (req.body.challengedScore < req.body.challengerScore) {
-        Player.findOneAndUpdate({ name: req.body.challenger }, { $inc: { played: + 1, won: + 1, totalPrizeMoney: + req.body.pot } })
-            .then(() => Player.findOneAndUpdate({ name: req.body.challenger }, { $push: { results: req.body } }))
-            .catch(err => res.status(400).json('Error: ' + err))
-            .then(() => Player.findOneAndUpdate({ name: req.body.challenged }, { $inc: { played: + 1, lost: + 1, totalPrizeMoney: - req.body.pot } }))
-            .catch(err => res.status(400).json('Error: ' + err))
+        Player.findOneAndUpdate({ name: req.body.challenged }, { $inc: { played: + 1, won: + 1, totalPrizeMoney: + req.body.pot } })
             .then(() => Player.findOneAndUpdate({ name: req.body.challenged }, { $push: { results: req.body } }))
+            .catch(err => res.status(400).json('Error: ' + err))
+            .then(() => Player.findOneAndUpdate({ name: req.body.challenger }, { $inc: { played: + 1, lost: + 1, totalPrizeMoney: - req.body.pot } }))
+            .catch(err => res.status(400).json('Error: ' + err))
+            .then(() => Player.findOneAndUpdate({ name: req.body.challenger }, { $push: { results: req.body } }))
             .catch(err => res.status(400).json('Error: ' + err))
             .then(() => Results.create(req.body))
             .catch(err => res.status(400).json('Error: ' + err))
@@ -23,12 +23,12 @@ router.route('/').post((req, res) => {
             .catch(err => res.status(400).json('Error: ' + err))
     }
     if (req.body.challengedScore > req.body.challengerScore) {
-        Player.findOneAndUpdate({ name: req.body.challenged }, { $inc: { played: + 1, won: + 1, totalPrizeMoney: + req.body.pot } })
-            .then(() => Player.findOneAndUpdate({ name: req.body.challenged }, { $push: { results: req.body } }))
-            .catch(err => res.status(400).json('Error: ' + err))
-            .then(() => Player.findOneAndUpdate({ name: req.body.challenger }, { $inc: { played: + 1, lost: + 1, totalPrizeMoney: - req.body.pot } }))
-            .catch(err => res.status(400).json('Error: ' + err))
+        Player.findOneAndUpdate({ name: req.body.challenger }, { $inc: { played: + 1, won: + 1, totalPrizeMoney: + req.body.pot } })
             .then(() => Player.findOneAndUpdate({ name: req.body.challenger }, { $push: { results: req.body } }))
+            .catch(err => res.status(400).json('Error: ' + err))
+            .then(() => Player.findOneAndUpdate({ name: req.body.challenged }, { $inc: { played: + 1, lost: + 1, totalPrizeMoney: - req.body.pot } }))
+            .catch(err => res.status(400).json('Error: ' + err))
+            .then(() => Player.findOneAndUpdate({ name: req.body.challenged }, { $push: { results: req.body } }))
             .catch(err => res.status(400).json('Error: ' + err))
             .then(() => Results.create(req.body))
             .catch(err => res.status(400).json('Error: ' + err))
