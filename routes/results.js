@@ -8,10 +8,14 @@ router.route('/').get((req, res) => {
         .catch(err => res.status(400).json('Error: ' + err));
 });
 
+function done() {
+    console.log('done')
+}
+
 router.route('/').post((req, res) => {
-    if (req.body.challengedScore > req.body.challengerScore) {
-        console.log('Challenged Won', req.body.challenged, req.body.challengedScore, req.body.challengerScore)
-        Player.findOneAndUpdate({ name: req.body.challenged }, { $inc: { played: + 1, won: + 1, totalPrizeMoney: + req.body.pot } })
+    if (parseInt(req.body.challengedScore) > parseInt(req.body.challengerScore)) {
+        console.log('Challenged Won', req.body)
+        Player.findOneAndUpdate({ name: req.body.challenged }, { $inc: { played: + 1, won: + 1, totalPrizeMoney: + req.body.pot }, done })
             .then(() => Player.findOneAndUpdate({ name: req.body.challenged }, { $push: { results: req.body } }))
             .catch(err => res.status(400).json('Error: ' + err))
             .then(() => Player.findOneAndUpdate({ name: req.body.challenger }, { $inc: { played: + 1, lost: + 1, totalPrizeMoney: - req.body.pot } }))
@@ -24,7 +28,7 @@ router.route('/').post((req, res) => {
             .catch(err => res.status(400).json('Error: ' + err))
     }
     else {
-        console.log('Challenger Won', req.body.challenger, req.body.challengedScore, req.body.challengerScore)
+        console.log('Challenger Won', req.body)
         Player.findOneAndUpdate({ name: req.body.challenger }, { $inc: { played: + 1, won: + 1, totalPrizeMoney: + req.body.pot } })
             .then(() => Player.findOneAndUpdate({ name: req.body.challenger }, { $push: { results: req.body } }))
             .catch(err => res.status(400).json('Error: ' + err))
