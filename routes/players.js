@@ -26,12 +26,12 @@ router.route('/').post((req, res) => {
         .catch(err => res.status(400).json('Error: ' + err))
 });
 
-router.route('/archive').post((req, res) => {
-    const newArchive = new Archive(req.body)
-    Archive.create(newArchive)
-
-        .then(() => res.json('Player Added to Archive'))
+router.route('/archive/:id').post((req, res) => {
+    console.log(req.params.id)
+    Player.findById(req.params.id)
+        .then(res => Archive.create(res))
         .catch(err => res.status(400).json('Error: ' + err))
+        
 });
 
 router.route('/:id').put((req, res) => {

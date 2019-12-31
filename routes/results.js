@@ -27,6 +27,7 @@ router.route('/').post((req, res) => {
             .catch(err => res.status(400).json('Error: ' + err))
             .then(() => res.json('Result Added'))
             .catch(err => res.status(400).json('Error: ' + err))
+        
     }
     else {
         console.log('Challenger Won', req.body)
@@ -59,6 +60,10 @@ router.route('/submit').post((req, res) => {
             .then(() => res.json('Result Added'))
             .catch(err => res.status(400).json('Error: ' + err))
             .then(() => Challenges.findOneAndDelete({ _id: req.body._id }))
+            .catch(err => res.status(400).json('Error: ' + err))
+            .then(() => Player.updateOne({ name: req.body.challenger }, { $set: { challengable: true } }))
+            .catch(err => res.status(400).json('Error: ' + err))
+            .then(() => Player.updateOne({ name: req.body.challenged }, { $set: { challengable: true } }))
             .catch(err => res.status(400).json('Error: ' + err))
     }
     else {
@@ -114,6 +119,10 @@ router.route('/submit').post((req, res) => {
             .then(() => res.json('Result Added'))
             .catch(err => res.status(400).json('Error: ' + err))
             .then(() => Challenges.findOneAndDelete({ _id: req.body._id }))
+            .catch(err => res.status(400).json('Error: ' + err))
+            .then(() => Player.updateOne({ name: req.body.challenger }, { $set: { challengable: true } }))
+            .catch(err => res.status(400).json('Error: ' + err))
+            .then(() => Player.updateOne({ name: req.body.challenged }, { $set: { challengable: true } }))
             .catch(err => res.status(400).json('Error: ' + err))
     }
 })
