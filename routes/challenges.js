@@ -21,9 +21,7 @@ router.route('/:id').delete((req, res) => {
 
 
 router.route('/').post((req, res) => {
-    const newChallenge = new Challenges(req.body);
-
-    newChallenge.save()
+    Challenges.create(req.body)
         .then(() => res.json('Challenge Added'))
         .catch(err => res.status(400).json('Error: ' + err))
 })
