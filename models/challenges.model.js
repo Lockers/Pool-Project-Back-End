@@ -5,9 +5,9 @@ const Schema = mongoose.Schema;
 const challengesSchema = new Schema({
     challenger: { type: String, required: true },
     challenged: { type: String, required: true },
-    venue: { type: String, required: true },
-    ruleset: { type: String, required: true },
-    pot: { type: Number, required: true },
+    venue: { type: String, required: false },
+    ruleset: { type: String, required: false },
+    pot: { type: Number, required: false },
     date: { type: Date, required: false, default: Date(2019, 0, 1)}
 });
 
