@@ -1,6 +1,5 @@
 const router = require('express').Router();
 let Player = require('../models/players.model');
-let Archive = require('../models/archives.model');
 
 
 router.route('/').get((req, res) => {
@@ -26,14 +25,6 @@ router.route('/').post((req, res) => {
         .catch(err => res.status(400).json('Error: ' + err))
 });
 
-router.route('/archive/:id').post((req, res) => {
-    console.log(req.params.id)
-    Player.findById(req.params.id)
-        .then(res => Archive.create(res))
-        .catch(err => res.status(400).json('Error: ' + err))
-        
-});
-
 router.route('/:id').put((req, res) => {
     Player.findOneAndUpdate({ leaguePosition: req.params.id }, req.body)
         .then(() => res.json('Player Updated'))
@@ -41,18 +32,12 @@ router.route('/:id').put((req, res) => {
 });
 
 router.route('/:id').delete((req, res) => {
-    Player.findById(req.params.id)
-        .then(res => {
-            return Player.updateMany(
-                { leaguePosition: { $gt: res.leaguePosition } },
-                { $inc: { leaguePosition: - 1 } })
-        })
-        .then(res => {
-            return Player.findByIdAndRemove(req.params.id)
-        })
+    const player = req.params.id
+    Player.findOneAndDelete({ name: player })
         .then(() => res.json('Player Deleted'))
-        .catch(err => res.status(400).json('Error: ' + err))
-
+        .catch(err => {
+            res.status(400).json('Error: ' + err)
+        })
 })
 
 module.exports = router;

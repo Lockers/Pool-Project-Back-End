@@ -30,11 +30,13 @@ connection.once('open', () => {
 const playersRouter = require('./routes/players');
 const challengesRouter = require('./routes/challenges');
 const resultsRouter = require('./routes/results');
+const archiveRouter = require('./routes/archives');
 
 
 app.use('/players', playersRouter);
 app.use('/challenges', challengesRouter);
 app.use('/results', resultsRouter);
+app.use('/archives', archiveRouter);
 
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);

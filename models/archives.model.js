@@ -3,16 +3,13 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const archiveSchema = new Schema({
-    _id: {type: String, required: false, trim: true},
-    name: { type: String, required: true, trim: true },
-    dateOfBirth: { type: Date, default: Date() },
-    leaguePosition: { type: Number, required: true },
-    played: { type: Number, required: true },
-    won: { type: Number, required: true },
-    lost: { type: Number, required: true },
-    totalPrizeMoney: { type: Number, required: true },
-    challengable: { type: Boolean, required: true },
-    results: {type: Array}
+    name: { type: String, required: false, trim: true },
+    dateOfBirth: { type: Date, required: false, default: Date() },
+    played: { type: Number, required: false },
+    won: { type: Number, required: false },
+    lost: { type: Number, required: false },
+    totalPrizeMoney: { type: Number, required: false },
+    results: { type: Array }, required: false
 }, {
     timestamps: true,
 });
