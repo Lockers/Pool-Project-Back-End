@@ -20,6 +20,13 @@ router.route('/:id').delete((req, res) => {
         .catch(err => res.status(400).json('Error: ' + err));
 });
 
+router.route('/:id').put((req, res) => {
+    console.log(req.params.id, req.body)
+    Challenges.findByIdAndUpdate(req.params.id, req.body)
+        .then(challenge => res.json(challenge))
+        .catch(err => res.status(400).json('Error: ' + err));
+});
+
 
 router.route('/').post((req, res) => {
     console.log(req.body)
