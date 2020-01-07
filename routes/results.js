@@ -104,6 +104,36 @@ router.route('/submit').post((req, res) => {
                         .then(() => Player.findOneAndUpdate({ leaguePosition: pos2 + 1 }, { $inc: { leaguePosition: 1 } }))
                         .then(() => Player.findOneAndUpdate({ leaguePosition: pos2 }, { $inc: { leaguePosition: 1 } }))
                 } 
+                if (pos1 - pos2 === 5) {
+                    Player.findOneAndUpdate({ leaguePosition: pos1 }, { $set: { leaguePosition: pos2 } })
+                        .then(() => Player.findOneAndUpdate({ leaguePosition: pos2 + 5 }, { $inc: { leaguePosition: 1 } }))
+                        .then(() => Player.findOneAndUpdate({ leaguePosition: pos2 + 4 }, { $inc: { leaguePosition: 1 } }))
+                        .then(() => Player.findOneAndUpdate({ leaguePosition: pos2 + 3 }, { $inc: { leaguePosition: 1 } }))
+                        .then(() => Player.findOneAndUpdate({ leaguePosition: pos2 + 2 }, { $inc: { leaguePosition: 1 } }))
+                        .then(() => Player.findOneAndUpdate({ leaguePosition: pos2 + 1 }, { $inc: { leaguePosition: 1 } }))
+                        .then(() => Player.findOneAndUpdate({ leaguePosition: pos2 }, { $inc: { leaguePosition: 1 } }))
+                } 
+                if (pos1 - pos2 === 6) {
+                    Player.findOneAndUpdate({ leaguePosition: pos1 }, { $set: { leaguePosition: pos2 } })
+                        .then(() => Player.findOneAndUpdate({ leaguePosition: pos2 + 6 }, { $inc: { leaguePosition: 1 } }))
+                        .then(() => Player.findOneAndUpdate({ leaguePosition: pos2 + 5 }, { $inc: { leaguePosition: 1 } }))
+                        .then(() => Player.findOneAndUpdate({ leaguePosition: pos2 + 4 }, { $inc: { leaguePosition: 1 } }))
+                        .then(() => Player.findOneAndUpdate({ leaguePosition: pos2 + 3 }, { $inc: { leaguePosition: 1 } }))
+                        .then(() => Player.findOneAndUpdate({ leaguePosition: pos2 + 2 }, { $inc: { leaguePosition: 1 } }))
+                        .then(() => Player.findOneAndUpdate({ leaguePosition: pos2 + 1 }, { $inc: { leaguePosition: 1 } }))
+                        .then(() => Player.findOneAndUpdate({ leaguePosition: pos2 }, { $inc: { leaguePosition: 1 } }))
+                } 
+                if (pos1 - pos2 === 7) {
+                    Player.findOneAndUpdate({ leaguePosition: pos1 }, { $set: { leaguePosition: pos2 } })
+                        .then(() => Player.findOneAndUpdate({ leaguePosition: pos2 + 7 }, { $inc: { leaguePosition: 1 } }))
+                        .then(() => Player.findOneAndUpdate({ leaguePosition: pos2 + 6 }, { $inc: { leaguePosition: 1 } }))
+                        .then(() => Player.findOneAndUpdate({ leaguePosition: pos2 + 5 }, { $inc: { leaguePosition: 1 } }))
+                        .then(() => Player.findOneAndUpdate({ leaguePosition: pos2 + 4 }, { $inc: { leaguePosition: 1 } }))
+                        .then(() => Player.findOneAndUpdate({ leaguePosition: pos2 + 3 }, { $inc: { leaguePosition: 1 } }))
+                        .then(() => Player.findOneAndUpdate({ leaguePosition: pos2 + 2 }, { $inc: { leaguePosition: 1 } }))
+                        .then(() => Player.findOneAndUpdate({ leaguePosition: pos2 + 1 }, { $inc: { leaguePosition: 1 } }))
+                        .then(() => Player.findOneAndUpdate({ leaguePosition: pos2 }, { $inc: { leaguePosition: 1 } }))
+                } 
             })
             .catch(err => res.status(400).json('Error: ' + err))
             .then(() => Player.findOneAndUpdate({ name: req.body.challenger }, { $inc: { played: + 1, won: + 1, totalPrizeMoney: + req.body.pot } }))
