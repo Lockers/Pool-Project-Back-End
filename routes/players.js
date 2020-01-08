@@ -32,8 +32,13 @@ router.route('/:id').put((req, res) => {
 });
 
 router.route('/:id').delete((req, res) => {
+
     const player = req.params.id
+    
     Player.findOneAndDelete({ name: player })
+        .then((res) => Player.updateMany(
+            { leaguePosition: { $lte: req.body.leaguePosition } },
+            { $inc: { leaguePosition: - 1 } }))
         .then(() => res.json('Player Deleted'))
         .catch(err => {
             res.status(400).json('Error: ' + err)
