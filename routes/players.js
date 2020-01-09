@@ -3,7 +3,8 @@ let Player = require('../models/players.model');
 
 
 router.route('/').get((req, res) => {
-    Player.find().sort({ leaguePosition: 'asc' })
+
+    Player.find().sort({ leaguePosition: 'desc' })
         .then(player => res.json(player))
         .catch(err => res.status(400).json('Error: ' + err));
 });
@@ -34,7 +35,7 @@ router.route('/:id').put((req, res) => {
 router.route('/:id').delete((req, res) => {
 
     const player = req.params.id
-    
+
     Player.findOneAndDelete({ name: player })
         .then((res) => Player.updateMany(
             { leaguePosition: { $lte: req.body.leaguePosition } },

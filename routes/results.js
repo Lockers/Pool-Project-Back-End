@@ -4,7 +4,7 @@ let Player = require('../models/players.model');
 let Challenges = require('../models/challenges.model');
 
 router.route('/').get((req, res) => {
-    Results.find()
+    Results.find().sort({date: 'desc'})
         .then(results => res.json(results))
         .catch(err => res.status(400).json('Error: ' + err));
 });
