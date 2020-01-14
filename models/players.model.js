@@ -21,7 +21,7 @@ const playersSchema = new Schema({
             venue: { type: String, required: true },
             ruleset: { type: String, required: true },
             pot: { type: Number, required: true },
-            date: { type: Date, required: false, default: Date(2019, 0, 1) }
+            date: { type: Date, required: true, default: Date(2019, 0, 1) }
         }
     ]
 
