@@ -1,11 +1,12 @@
 const router = require('express').Router();
 let Player = require('../models/players.model');
 
-
 router.route('/').get((req, res) => {
-    console.log('getting')
+    
     Player.find().sort({ leaguePosition: 'asc' })
-        .then(player => res.json(player))
+        .then(player => {
+            res.json(player)
+        })
         .catch(err => res.status(400).json('Error: ' + err));
 });
 
