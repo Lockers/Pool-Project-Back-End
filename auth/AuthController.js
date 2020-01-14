@@ -10,8 +10,6 @@ const bcrypt = require('bcryptjs');
 const config = require('../config');
 
 router.post('/register', function (req, res) {
-    console.log(req.body)
-
     const hashedPassword = bcrypt.hashSync(req.body.password, 13);
 
     User.create({

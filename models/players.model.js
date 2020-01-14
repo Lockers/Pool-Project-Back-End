@@ -11,6 +11,7 @@ const playersSchema = new Schema({
     lost: { type: Number, required: true },
     totalPrizeMoney: { type: Number, required: true },
     challengable: { type: Boolean, required: true },
+    higestLeaguePosition: {type: Number, required: false},
     results: [
         {
             challenger: { type: String, required: true },
