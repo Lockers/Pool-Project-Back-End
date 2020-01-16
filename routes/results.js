@@ -10,8 +10,9 @@ router.route('/').get((req, res) => {
 });
 
 router.route('/submit').post((req, res) => {
+    console.log(req.body)
     if (parseInt(req.body.challengedScore) > parseInt(req.body.challengerScore)) {
-        Player.findOneAndUpdate({ name: req.body.challenged }, { $inc: { played: + 1, won: + 1, totalPrizeMoney: + req.body.pot }, done })
+        Player.findOneAndUpdate({ name: req.body.challenged }, { $inc: { played: + 1, won: + 1, totalPrizeMoney: + req.body.pot }})
             .then(() => Player.findOneAndUpdate({ name: req.body.challenged }, { $push: { results: req.body } }))
             .catch(err => res.status(400).json('Error: ' + err))
             .then(() => Player.findOneAndUpdate({ name: req.body.challenger }, { $inc: { played: + 1, lost: + 1, totalPrizeMoney: - req.body.pot } }))
