@@ -13,7 +13,7 @@ app.use(express.json())
 app.use(compression())
 app.use(helmet())
 
-const uri = process.env.ATLAS_URI;
+const uri = process.env.ATLAS_TEST_URI;
 mongoose.connect(uri, {
     useNewUrlParser: true,
     useCreateIndex: true,
