@@ -3,15 +3,11 @@ let Results = require('../models/results.model');
 let Player = require('../models/players.model');
 let Challenges = require('../models/challenges.model');
 
-router.route('/').get((req, res) => {
-    Results.find().sort({date: 'desc'})
-        .then(results => res.json(results))
-        .catch(err => res.status(400).json('Error: ' + err));
-});
+const resultsController = require('../controllers/resultsController');
 
+router.get('/', resultsController.getResults);
 
 router.route('/submit').post((req, res) => {
-    console.log(req.body)
     if (parseInt(req.body.challengedScore) > parseInt(req.body.challengerScore)) {
         Player.findOneAndUpdate({ name: req.body.challenged }, { $inc: { played: + 1, won: + 1, totalPrizeMoney: + req.body.pot }})
             .then(() => Player.findOneAndUpdate({ name: req.body.challenged }, { $push: { results: req.body } }))
