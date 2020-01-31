@@ -1,7 +1,7 @@
 const Player = require('../models/players.model');
 
 exports.getPlayers = (req, res, next) => {
-    Player.find().sort({ leaguePosition: 'desc' })
+    Player.find().sort({ leaguePosition: 'asc' })
         .then(Player => res.json(Player))
         .catch(err => res.status(400).json('Error: ' + err))
 }
