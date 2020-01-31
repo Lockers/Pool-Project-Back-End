@@ -1,7 +1,10 @@
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
+const compression = require('compression');
 const helmet = require('helmet');
+const morgan = require('morgan')
+
 
 require('dotenv').config();
 
@@ -9,7 +12,9 @@ const app = express();
 
 app.use(cors());
 app.use(express.json())
+app.use(compression())
 app.use(helmet())
+app.use(morgan('default'))
 
 const uri = process.env.ATLAS_URI;
 mongoose.connect(uri, {
